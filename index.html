@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="ocks-org do-not-copy">
 <meta charset="utf-8">
-<title>Les Misérables Co-occurrence</title>
+<title>SNL Installation Testing</title>
 <style>
 
-@import url(../style.css?aea6f0a);
+@import url(style.css);
 
 .background {
   fill: #eee;
@@ -19,18 +19,22 @@ text.active {
 }
 
 </style>
-<script src="http://d3js.org/d3.v2.min.js?2.8.1"></script>
-
+<script src="d3.js"></script>
+    
 <header>
-  <aside>April 10, 2012</aside>
-  <a href="../" rel="author">Mike Bostock</a>
+  <aside id="runTime"></aside>
+  <a href="../" rel="author">SI-Lab</a>
 </header>
+    
+<script>
+    document.getElementById("runTime").innerHTML = Date();
+</script>
 
-<h1><i>Les Misérables</i> Co-occurrence</h1>
+<h1>SNL Installation Testing Scenarios</h1>
 
 <aside style="margin-top:80px;">
 <p>Order: <select id="order">
-  <option value="name">by Name</option>
+  <option value="name">by Versions</option>
   <option value="count">by Frequency</option>
   <option value="group">by Cluster</option>
 </select>
@@ -61,9 +65,9 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("miserables.json", function(miserables) {
+d3.json("snlinstall.json", function(snlinstall) {
   var matrix = [],
-      nodes = miserables.nodes,
+      nodes = snlinstall.nodes,
       n = nodes.length;
 
   // Compute index per node.
@@ -74,7 +78,7 @@ d3.json("miserables.json", function(miserables) {
   });
 
   // Convert links to matrix; count character occurrences.
-  miserables.links.forEach(function(link) {
+  snlinstall.links.forEach(function(link) {
     matrix[link.source][link.target].z += link.value;
     matrix[link.target][link.source].z += link.value;
     matrix[link.source][link.source].z += link.value;
